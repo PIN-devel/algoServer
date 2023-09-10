@@ -8,12 +8,17 @@ from rest_framework.response import Response
 
 from users.models import User
 from .models import Group, Round
-from .serializers import GroupSerializer, RoundSerializer, RoundDetailSerializer
+from .serializers import GroupSerializer, GroupDetailSerializer, RoundSerializer, RoundDetailSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return GroupDetailSerializer
+        return GroupSerializer
 
     def create(self, request, *args, **kwargs):
         leader_id = request.data.get('leader_id')

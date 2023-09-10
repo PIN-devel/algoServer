@@ -11,6 +11,14 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GroupDetailSerializer(serializers.ModelSerializer):
+    members = UserSerializer(many=True)
+
+    class Meta:
+        model = Group
+        fields = '__all__'
+
+
 class RoundSerializer(serializers.ModelSerializer):
     class Meta:
         model = Round
